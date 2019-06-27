@@ -1,0 +1,65 @@
+<html>
+<head>
+  <Title>Portfolio Optimizer</title>
+<link rel="stylesheet" media="screen" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+   <body>
+     <div class="container"><br>
+         <center>
+           <h2>RealCrowd Portfolio Optimizer</h2>
+         </center>
+       </div>
+
+       <div class="row">
+         <div class="col-md-4">
+           <table class="table table-striped" id="owned_stock_table">
+             <thead>
+               <tr>
+                 <th>Porfolio</th>
+                 <th>Equity Allocation</th>
+                 <th>Bond Allocation</th>
+                 <th>Direct Real Estate Allocation</th>
+               </tr>
+             </thead>
+             <tbody>
+               {% for key,port_data in portfolios.iterrows() %}
+               <tr>
+                 <td>{{port_data['name']}}</td>
+                 <td>{{ port_data['stock weight']*100 }}</td>
+                 <td>{{ port_data['bond weight']*100 }}</td>
+                 <td>{{ port_data['real estate weight']*100}}</td>
+               </tr>
+               {% endfor %}
+             </tbody>
+           </table>
+         </div>
+       </div>
+<div class='row'>
+     <img src="{{url_for('static', filename=backtest)}}", height="350px"/>
+   </div>
+   <p><br>
+             <div class="row">
+               <div class="col-md-4">
+                 <table class="table table-striped" id="owned_stock_table">
+                   <thead>
+                     <tr>
+                       <th>Mean Error</th>
+                       <th>Number Quarters Optimal Ahead</th>
+                       <th></th>
+                     </tr>
+                   </thead>
+                   <tbody>
+                     <tr>
+                       <td>{{ md }}</td>
+                       <td>{{ ahead }}</td>
+                       <td></td>
+                     </tr>
+                   </tbody>
+                 </table>
+               </div>
+             </div>
+
+   </body>
+</html>

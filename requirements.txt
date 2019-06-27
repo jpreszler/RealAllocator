@@ -1,0 +1,9 @@
+numpy
+pandas
+matplotlib
+seaborn
+flask
+flask_bootstrap
+wtforms
+time
+gunicorn

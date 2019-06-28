@@ -46,14 +46,6 @@ def port_tsdf(portfolio, opt_portfolio, returnsDF, startQuarter, endQuarter):
 
     return(returns_small[['Quarter', 'Current Portfolio', 'Optimal Portfolio', 'Current', 'RealAllocator']])
 
-def draw_perform(port_ts_df):
-#    port_ts_df['Current Portfolio Cumulative'] = port_ts_df['Current Portfolio'].cumprod()
-#    port_ts_df['Optimal Portfolio Cumulative'] = port_ts_df['Optimal Portfolio'].cumprod()
-
-    #g = sns.lineplot(x='Quarter', y='value', hue='variable', data=pd.melt(port_ts_df, id_vars=['Quarter'], value_vars = ['Equities', 'Bonds', 'Real Estate', 'Portfolio']))
-    g= sns.lineplot(x='Quarter', y='value', hue='variable', data=pd.melt(port_ts_df, id_vars=['Quarter'], value_vars=['Current Portfolio', 'Optimal Portfolio']))
-    return g
-
 def get_optimal_portfolio(risk_tolerance):
     #read datasets
     vp = pd.read_csv('static/vp-sharpe-all.csv')
@@ -115,7 +107,7 @@ def optimizer():
     grid.set_title('5 year Back Test Total Returns') # can also get the figure from plt.gcf()
     grid.set_ylabel('Cumulative Return (%)')
     plt.setp(grid.get_xticklabels(), rotation=45, visible=True, ha='right')
-    qtrs = ['2014Q1', '2015Q1', '2016Q1', '2017Q1', '2018Q1', '2019Q1']
+    qtrs = ['2014\n Q1', '2015\n Q1', '2016\n Q1', '2017\n Q1', '2018\n Q1', '2019\n Q1']
     grid.set(xticklabels=[qtrs[i//4] if(i%4==0) else ' ' for i in range(0,4*len(qtrs))])
     plt.tight_layout()
     plt.savefig('static/'+graph5)

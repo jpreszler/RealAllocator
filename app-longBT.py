@@ -119,7 +119,7 @@ def optimizer():
     grid.set_title('7 year Back Test Total Returns') # can also get the figure from plt.gcf()
     grid.set_ylabel('Cumulative Return (%)')
     plt.setp(grid.get_xticklabels(), rotation=45, visible=True, ha='right')
-    qtrs = ['2012Q1', '2013Q1', '2014Q1', '2015Q1', '2016Q1', '2017Q1', '2018Q1', '2019Q1']
+    qtrs = ['2012\n Q1', '2013\n Q1', '2014\n Q1', '2015\n Q1', '2016\n Q1', '2017\n Q1', '2018\n Q1', '2019\n Q1']
     grid.set(xticklabels=[qtrs[i//4] if(i%4==0) else ' ' for i in range(0,4*len(qtrs))])
     plt.tight_layout()
     plt.savefig('static/'+graph7)
@@ -131,7 +131,7 @@ def optimizer():
     grid.set_title('10 year Back Test Total Returns') # can also get the figure from plt.gcf()
     grid.set_ylabel('Cumulative Return (%)')
     plt.setp(grid.get_xticklabels(), rotation=45, visible=True, ha='right')
-    qtrs = ['2009Q1', '2010Q1', '2011Q1', '2012Q1', '2013Q1', '2014Q1', '2015Q1', '2016Q1', '2017Q1', '2018Q1', '2019Q1']
+    qtrs = ['2009\n Q1', '2010\n Q1', '2011\n Q1', '2012\n Q1', '2013\n Q1', '2014\n Q1', '2015\n Q1', '2016\n Q1', '2017\n Q1', '2018\n Q1', '2019\n Q1']
     grid.set(xticklabels=[qtrs[i//4] if(i%4==0) else ' ' for i in range(0,4*len(qtrs))])
     plt.tight_layout()
     plt.savefig('static/'+graph10)

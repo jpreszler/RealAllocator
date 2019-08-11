@@ -95,7 +95,7 @@ def optimizer():
     std_diff = []
     tr_diff = []
     for pr in port_rets:
-        opt_ahead.append(pr[pr['Optimal Portfolio']>=pr['Current Portfolio']]['Quarter'].count())
+        opt_ahead.append(pr[pr['Optimal Portfolio']>=pr['Current Portfolio']]['Quarter'].count())r
         mean_diff.append(np.round((pr['Optimal Portfolio']-pr['Current Portfolio']).mean(), decimals=3))
         std_diff.append(np.round((pr['Optimal Portfolio'].std()-pr['Current Portfolio'].std()), decimals=3))
         tr_diff.append(np.round(((1+pr['Optimal Portfolio']/100).prod()-(1+pr['Current Portfolio']/100).prod())*100, decimals=1))

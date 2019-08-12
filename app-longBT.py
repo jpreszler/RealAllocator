@@ -95,7 +95,7 @@ def optimizer():
     std_diff = []
     tr_diff = []
     for pr in port_rets:
-        opt_ahead.append(pr[pr['Optimal Portfolio']>=pr['Current Portfolio']]['Quarter'].count())r
+        opt_ahead.append(pr[pr['Optimal Portfolio']>=pr['Current Portfolio']]['Quarter'].count())
         mean_diff.append(np.round((pr['Optimal Portfolio']-pr['Current Portfolio']).mean(), decimals=3))
         std_diff.append(np.round((pr['Optimal Portfolio'].std()-pr['Current Portfolio'].std()), decimals=3))
         tr_diff.append(np.round(((1+pr['Optimal Portfolio']/100).prod()-(1+pr['Current Portfolio']/100).prod())*100, decimals=1))
@@ -171,11 +171,16 @@ def optCustomBT():
     bt_results = pd.DataFrame({'Length':'Custom', 'opt_up':opt_ahead, 'mean_error':mean_diff, 'risk':std_diff, 'sum':tr_diff})
 
     graph = 'custom-backtest'+str(time.time())+'.json'
-    port_ret = pr[['Quarter', 'Current', 'RealAllocator']]
+    port_ret = pr[['Quarter', 'Current', 'RealAllocator']].copy()
+    port_ret.Quarter = port_ret.Quarter.str.replace("Q1", '-03-31')
+    port_ret.Quarter = port_ret.Quarter.str.replace("Q2", '-06-30')
+    port_ret.Quarter = port_ret.Quarter.str.replace("Q3", '-09-30')
+    port_ret.Quarter = port_ret.Quarter.str.replace("Q4", '-12-31')
+
     pr_dict = port_ret.to_dict(orient='records')
     import json
-    data = json.dumps(pr_dict, indent=2)
-
+    chart_data = json.dumps(pr_dict, indent=2)
+    data = {'chart_data': chart_data}
 #    grid = sns.lineplot(x='Quarter', y='value', data=port_ret_long, hue='variable')
 #    grid.set_title('Custom Back Test Total Returns') # can also get the figure from plt.gcf()
 #    grid.set_ylabel('Cumulative Return (%)')

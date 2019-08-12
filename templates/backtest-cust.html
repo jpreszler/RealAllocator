@@ -115,12 +115,6 @@ var graphData = {{backtest.chart_data | safe}}
 //var yAxis = d3.svg.axis().scale(y).orient("left").ticks(5);
 var parseTime = d3.timeParse("%Y-%m-%d");
 
-var RALine = d3.line().x(function(d) { return x(d.Quarter); })
-                          .y(function(d) { return y(d.RealAllocator); })
-
-var CLine =  d3.line().x(function(d) { return x(d.Quarter); })
-                          .y(function(d) { return y(d.Current); })
-
 function drawGraph(data) {
 // For each row in the data, parse the date
 // and use + to make sure data is numerical

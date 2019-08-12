@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import time
-from flask import Flask, render_template, flash, request, session
+from flask import Flask, render_template, flash, request, session, jsonify
 from wtforms import Form, IntegerField, TextField, SelectField, SubmitField
 
 from wtforms import validators, ValidationError
@@ -170,19 +170,24 @@ def optCustomBT():
     tr_diff.append(np.round(((1+pr['Optimal Portfolio']/100).prod()-(1+pr['Current Portfolio']/100).prod())*100, decimals=1))
     bt_results = pd.DataFrame({'Length':'Custom', 'opt_up':opt_ahead, 'mean_error':mean_diff, 'risk':std_diff, 'sum':tr_diff})
 
-    graph = 'custom-backtest'+str(time.time())+'.png'
-    port_ret_long = pd.melt(pr, id_vars=['Quarter'], value_vars=['Current', 'RealAllocator'])
-    grid = sns.lineplot(x='Quarter', y='value', data=port_ret_long, hue='variable')
-    grid.set_title('Custom Back Test Total Returns') # can also get the figure from plt.gcf()
-    grid.set_ylabel('Cumulative Return (%)')
-    plt.setp(grid.get_xticklabels(), rotation=45, visible=True, ha='right')
-    qtrs = list(pr['Quarter'])
-    grid.set(xticklabels=[qtrs[i//4] if(i%4==0) else ' ' for i in range(0,4*len(qtrs))])
-    plt.tight_layout()
-    plt.savefig('static/'+graph)
-    plt.close()
+    graph = 'custom-backtest'+str(time.time())+'.json'
+    port_ret = pr[['Quarter', 'Current', 'RealAllocator']]
+    pr_dict = port_ret.to_dict(orient='records')
+    import json
+    data = json.dumps(pr_dict, indent=2)
 
-    return render_template('backtest-cust.html', portfolios=curr_port.append(opt_port), backtest=graph , results=bt_results)
+#    grid = sns.lineplot(x='Quarter', y='value', data=port_ret_long, hue='variable')
+#    grid.set_title('Custom Back Test Total Returns') # can also get the figure from plt.gcf()
+#    grid.set_ylabel('Cumulative Return (%)')
+#    plt.setp(grid.get_xticklabels(), rotation=45, visible=True, ha='right')
+#    qtrs = list(pr['Quarter'])
+#    grid.set(xticklabels=[qtrs[i//4] if(i%4==0) else ' ' for i in range(0,4*len(qtrs))])
+#    plt.tight_layout()
+#    plt.savefig('static/'+graph)
+#    plt.close()
+
+
+    return render_template('backtest-cust.html', portfolios=curr_port.append(opt_port), backtest=data , results=bt_results)
 
 
 if __name__ == '__main__':
